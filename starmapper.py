@@ -1,4 +1,5 @@
 import argparse
+import math
 import pandas as pd
 import svgwrite as svg
 
@@ -35,18 +36,26 @@ print(min_y)
 print(type(min_y))
 maxmin = list((max_x, max_y, abs(min_x), abs(min_y)))
 print(maxmin)
-true_max = max(maxmin)
+true_max = math.ceil(max(maxmin))
 print(true_max)
-
-# Create grid
-if args.grid:
-	print("Grid not yet implemented")
 
 # Create SVG file
 dwg = svg.Drawing(outFile)
 
 # Add stylesheet
 dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; }")
+
+
+# Create grid
+if args.grid:
+	true_max *= 10
+	hlines = dwg.add(dwg.g(id="hlines", stroke="lightgray"))
+	for y in range(-true_max, true_max + 10, 10):
+		hlines.add(dwg.line(start=(-true_max, y), end=(true_max, y)))
+	vlines = dwg.add(dwg.g(id="vlines", stroke="lightgray"))
+	for x in range(-true_max, true_max + 10, 10):
+		hlines.add(dwg.line(start=(x, -true_max), end=(x, true_max)))
+
 
 for index, row in df.iterrows():
 	# Scale X, Y values
