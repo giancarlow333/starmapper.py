@@ -28,13 +28,9 @@ max_x = df.max(axis=0)["X"]
 max_y = df.max(axis=0)["Y"]
 min_x = df.min(axis=0)["X"]
 min_y = df.min(axis=0)["Y"]
-print(min_y)
-print(type(min_y))
 maxmin = list((max_x, max_y, abs(min_x), abs(min_y)))
-print(maxmin)
 true_max = math.ceil(max(maxmin))
 true_max *= 10
-print(true_max)
 
 # Create SVG file
 dwg = svg.Drawing(outFile)
@@ -122,5 +118,6 @@ for index, row in df.iterrows():
 # END LOOP
 
 # Resize the SVG to bound everything
+# TBD
 	
 dwg.save() # Close the map
