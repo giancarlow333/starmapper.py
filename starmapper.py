@@ -33,9 +33,13 @@ for index, row in df.iterrows():
 	y_value = 10*row["Y"]
 	star = dwg.circle(center=(x_value, y_value), r="2", fill="yellow")
 	dwg.add(star) # Add star to map
+
+
 	x_value += 3
 	y_value += 3
-	text = dwg.text(row["NAME"], insert=(x_value, y_value), style="font-size: 3px; font-family: sans")
-	dwg.add(text)
+	z_value = round(row["Z"], 0)
+	text_to_use = row["NAME"] + " (" + str(z_value) + ")"
+	text = dwg.text(text_to_use, insert=(x_value, y_value), style="font-size: 3px; font-family: sans")
+	dwg.add(text) # Add text to map
 	
 dwg.save() # Close the map
