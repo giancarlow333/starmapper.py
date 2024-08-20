@@ -19,10 +19,28 @@ if args.output:
 else:
 	outFile = "output.svg"
 
+# Dark mode
+if args.dark:
+	print("Dark mode not yet implemented")
+
 # read the file
 df = pd.read_csv(inFile)
 
-#print(df) # for testing
+# Find the size of the bounding box
+max_x = df.max(axis=0)["X"]
+max_y = df.max(axis=0)["Y"]
+min_x = df.min(axis=0)["X"]
+min_y = df.min(axis=0)["Y"]
+print(min_y)
+print(type(min_y))
+maxmin = list((max_x, max_y, abs(min_x), abs(min_y)))
+print(maxmin)
+true_max = max(maxmin)
+print(true_max)
+
+# Create grid
+if args.grid:
+	print("Grid not yet implemented")
 
 # Create SVG file
 dwg = svg.Drawing(outFile)
