@@ -39,29 +39,35 @@ print(true_max)
 # Create SVG file
 dwg = svg.Drawing(outFile)
 
+# Add stylesheet
+if args.dark:
+	dwg.embed_stylesheet(".star { stroke: white; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; fill: white }")
+else:
+	dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; fill: black }")
+
 # Create background
 if args.dark:
 	back = dwg.rect(insert=(-true_max, -true_max), size=(2*true_max, 2*true_max), fill="black")
-	# Add stylesheet
-	dwg.embed_stylesheet(".star { stroke: white; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; color: white }")
 else:
 	back = dwg.rect(insert=(-true_max, -true_max), size=(2*true_max, 2*true_max), fill="white")
-	# Add stylesheet
-	dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; color: black }")
 
 # Add the background
 dwg.add(back)
 
 # Create grid
 if args.grid:
-	hlines = dwg.add(dwg.g(id="hlines", stroke="lightgray"))
+	if args.dark:
+		hlines = dwg.add(dwg.g(id="hlines", stroke="lightgray"))
+		vlines = dwg.add(dwg.g(id="vlines", stroke="lightgray"))
+	else:
+		hlines = dwg.add(dwg.g(id="hlines", stroke="darkgray"))
+		vlines = dwg.add(dwg.g(id="vlines", stroke="darkgray"))
 	for y in range(-true_max, true_max + 10, 10):
-		hlines.add(dwg.line(start=(-true_max, y), end=(true_max, y)))
-	vlines = dwg.add(dwg.g(id="vlines", stroke="lightgray"))
+		hlines.add(dwg.line(start=(-true_max, y), end=(true_max, y), stroke_width=0.25))
 	for x in range(-true_max, true_max + 10, 10):
-		hlines.add(dwg.line(start=(x, -true_max), end=(x, true_max)))
+		vlines.add(dwg.line(start=(x, -true_max), end=(x, true_max), stroke_width=0.25))
 
-
+# Add the stars
 for index, row in df.iterrows():
 	# Scale X, Y values
 	x_value = 10*row["X"]
@@ -114,5 +120,7 @@ for index, row in df.iterrows():
 	# Add text to map
 	dwg.add(text)
 # END LOOP
+
+# Resize the SVG to bound everything
 	
 dwg.save() # Close the map
