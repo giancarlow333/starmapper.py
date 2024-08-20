@@ -26,20 +26,39 @@ df = pd.read_csv(inFile)
 dwg = svg.Drawing(outFile)
 
 # Add stylesheet
-dwg.embed_stylesheet(".star { fill: yellow; stroke: black; stroke-width: 0.1 }")
+dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; }")
 
 for index, row in df.iterrows():
 	# Scale X, Y values
 	x_value = 10*row["X"]
 	y_value = 10*row["Y"]
 
-	# Determine spectral class
-	spectral = row["SPECTRAL TYPE"]
-	spectral = spectral[0]
-	print(spectral)
-
 	# Create star
 	star = dwg.circle(center=(x_value, y_value), r="2", class_="star")
+
+	# Determine spectral class and create stars
+	spectral = row["SPECTRAL TYPE"]
+	spectral = spectral[0]
+	if spectral == "O":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star o-star")
+	elif spectral == "B":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star b-star")
+	elif spectral == "A":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star a-star")
+	elif spectral == "F":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star f-star")
+	elif spectral == "G":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star g-star")
+	elif spectral == "K":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star k-star")
+	elif spectral == "M":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star m-star")
+	elif spectral == "L" or spectral == "T" or spectral == "Y":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star lty-star")
+	elif spectral == "D":
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star d-star")
+	else:
+		star = dwg.circle(center=(x_value, y_value), r="2", class_="star g-star")
 
 	# Add star to map
 	dwg.add(star)
