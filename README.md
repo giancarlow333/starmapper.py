@@ -4,24 +4,25 @@ This Python script takes in a CSV file of 3D coordinates of stars and converts t
 
 ## Usage
 
-Download the script and invoke it on the command line.
-
-TK.
+Download the script and invoke it on the command line.  Type `python3 starmapper.py -h` for help.
 
 You may need to install dependencies:
-	`pip install svgwrite`
+	`pip install svgwrite`,
 	`pip install pandas`
 
-## Development goals
+The input file must be a CSV file of the following format:
 
-1. ~Script reads in a CSV file~~
-2. ~~For each row in the file:~~
-	1. ~~Place a circle at the X and Y coordinates~~
-	2. ~~Color the circle based on its spectral type~~
-	3. ~~Place text near the circle with the star's name and Z coordinate in parens~~
-4. Resize the screen so everything is visible
-5. Add a grid
-6. Add a dark mode
+	`NAME,SPECTRAL TYPE,X,Y,Z`
+
+The first row *must* include those column headers!  The names are hard-coded into the script.
+
+A sample input file, `sample_file.csv`, is provided as an example.  If no input file is specified in the command line, this file is used by default.
+
+The program will produce an image like this:
+
+## Future development goals
+
+Currently, when you click on the produced image, only the first quadrant is shown.  The other quadrants are *produced*, but are not visible.  You need to redraw the bounds using other software; I use [Inkscape](https://inkscape.org/).  I hope to fix this in the future.
 
 ## Technologies used
 
