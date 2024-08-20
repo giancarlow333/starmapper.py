@@ -2,9 +2,11 @@ import argparse
 import pandas as pd
 import svgwrite as svg
 
-parser = argparse.ArgumentParser(description="This program reads an SVG file and uses it to create a 2D star map.")
+parser = argparse.ArgumentParser(description="This program reads an SVG file and uses it to create a 2D star map.", epilog="(c) 2024 Giancarlo Whitaker")
 parser.add_argument("-i", '--input', nargs=1, type=argparse.FileType('r'), help="input file name")
 parser.add_argument("-o", '--output', nargs=1, type=argparse.FileType('a'), help="output to specified file")
+parser.add_argument('-g', '--grid', action='store_true', help="print a grid (optional)")
+parser.add_argument('-d', '--dark', action='store_true', help="activate dark mode (optional)")
 
 args = parser.parse_args()
 
