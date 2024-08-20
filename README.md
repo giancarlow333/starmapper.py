@@ -11,4 +11,11 @@ TK
 	3. Place text near the circle with the star's name and Z coordinate in parens
 4. Resize the screen so everything is visible
 
+## Technologies used
 
+* [SVGWrite](https://pypi.org/project/svgwrite/)
+* 
+
+---
+
+(c) 2024 Giancarlo Whitaker
