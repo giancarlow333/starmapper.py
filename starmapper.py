@@ -20,7 +20,7 @@ else:
 # read the file
 df = pd.read_csv(inFile)
 
-print(df) # for testing
+#print(df) # for testing
 
 # Create SVG file
 dwg = svg.Drawing(outFile)
@@ -29,7 +29,13 @@ dwg = svg.Drawing(outFile)
 # dwg.embed_stylesheet(".star { fill: yellow; }")
 
 for index, row in df.iterrows():
-	star = dwg.circle(center=(10*row["X"], 10*row["Y"]), r="2", fill="yellow")
+	x_value = 10*row["X"]
+	y_value = 10*row["Y"]
+	star = dwg.circle(center=(x_value, y_value), r="2", fill="yellow")
 	dwg.add(star) # Add star to map
+	x_value += 3
+	y_value += 3
+	text = dwg.text(row["NAME"], insert=(x_value, y_value), style="font-size: 3px; font-family: sans")
+	dwg.add(text)
 	
 dwg.save() # Close the map
