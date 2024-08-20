@@ -20,6 +20,8 @@ A sample input file, `sample_file.csv`, is provided as an example.  If no input 
 
 The program will produce an image like this:
 
+![A sample of program output](output.svg)
+
 ## Future development goals
 
 Currently, when you click on the produced image, only the first quadrant is shown.  The other quadrants are *produced*, but are not visible.  You need to redraw the bounds using other software; I use [Inkscape](https://inkscape.org/).  I hope to fix this in the future.

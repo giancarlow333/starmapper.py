@@ -37,9 +37,9 @@ dwg = svg.Drawing(outFile)
 
 # Add stylesheet
 if args.dark:
-	dwg.embed_stylesheet(".star { stroke: white; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; fill: white }")
+	dwg.embed_stylesheet(".star { stroke: white; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } .lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; fill: white }")
 else:
-	dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; fill: black }")
+	dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } .lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; fill: black }")
 
 # Create background
 if args.dark:
