@@ -20,10 +20,6 @@ if args.output:
 else:
 	outFile = "output.svg"
 
-# Dark mode
-if args.dark:
-	print("Dark mode not yet implemented")
-
 # read the file
 df = pd.read_csv(inFile)
 
@@ -37,18 +33,27 @@ print(type(min_y))
 maxmin = list((max_x, max_y, abs(min_x), abs(min_y)))
 print(maxmin)
 true_max = math.ceil(max(maxmin))
+true_max *= 10
 print(true_max)
 
 # Create SVG file
 dwg = svg.Drawing(outFile)
 
-# Add stylesheet
-dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; }")
+# Create background
+if args.dark:
+	back = dwg.rect(insert=(-true_max, -true_max), size=(2*true_max, 2*true_max), fill="black")
+	# Add stylesheet
+	dwg.embed_stylesheet(".star { stroke: white; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; color: white }")
+else:
+	back = dwg.rect(insert=(-true_max, -true_max), size=(2*true_max, 2*true_max), fill="white")
+	# Add stylesheet
+	dwg.embed_stylesheet(".star { stroke: black; stroke-width: 0.1 } .o-star { fill: lightblue; } .b-star { fill: blue; } .a-star, .d-star { fill: white; } .f-star { fill: lightyellow; } .g-star { fill: yellow; } .k-star { fill: orange; } .m-star { fill: red; } lty-star { fill: darkred; } text { font-size: 3px; font-family: sans; color: black }")
 
+# Add the background
+dwg.add(back)
 
 # Create grid
 if args.grid:
-	true_max *= 10
 	hlines = dwg.add(dwg.g(id="hlines", stroke="lightgray"))
 	for y in range(-true_max, true_max + 10, 10):
 		hlines.add(dwg.line(start=(-true_max, y), end=(true_max, y)))
@@ -104,7 +109,7 @@ for index, row in df.iterrows():
 		text_to_use = row["NAME"] + " (" + str(int(z_value)) + ")"
 
 	# Create text object
-	text = dwg.text(text_to_use, insert=(x_value, y_value), style="font-size: 3px; font-family: sans")
+	text = dwg.text(text_to_use, insert=(x_value, y_value))
 
 	# Add text to map
 	dwg.add(text)
