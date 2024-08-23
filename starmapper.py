@@ -67,7 +67,7 @@ if args.grid:
 for index, row in df.iterrows():
 	# Scale X, Y values
 	x_value = 10*row["X"]
-	y_value = 10*row["Y"]
+	y_value = -10*row["Y"]
 
 	# Create star
 	star = dwg.circle(center=(x_value, y_value), r="2", class_="star")
